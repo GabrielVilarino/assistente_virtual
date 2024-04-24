@@ -10,7 +10,9 @@ while(True):
 
     with sr.Microphone() as source:
         engine = pyttsx3.init()
-        engine.setProperty('voice', 'com.apple.speech.synthesis.voice.luciana')
+        rate = engine.getProperty('rate')
+        engine.setProperty('rate', rate-45)
+
         mic.adjust_for_ambient_noise(source)
 
         try:
