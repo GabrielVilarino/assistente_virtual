@@ -122,6 +122,16 @@ files = [
 ]
 
 [[package]]
+name = "fpdf"
+version = "1.7.2"
+description = "Simple PDF generation for Python"
+optional = false
+python-versions = "*"
+files = [
+    {file = "fpdf-1.7.2.tar.gz", hash = "sha256:125840783289e7d12552b1e86ab692c37322e7a65b96a99e0ea86cca041b6779"},
+]
+
+[[package]]
 name = "idna"
 version = "3.7"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -3038,4 +3048,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "76f177403b0ce144b5821e6bc6ca5cdf4f58a75420c2af1a2d84d3f0ac9adb37"
+content-hash = "ef9ef9de870df1581e202695058c06c10c5b083b6a05099e86292cbadcb28526"
