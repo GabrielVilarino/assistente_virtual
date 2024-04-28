@@ -4,8 +4,10 @@ import pyttsx3
 import random
 from datetime import datetime
 from fpdf import FPDF
+from spotify import Spotify
 
 nome_usuario = ''
+spotify = Spotify()
 ASSISTENTE = 'Neiva'
 PIADAS = ['Por que os químicos são ótimos em resolver problemas? Porque eles têm todas as soluções!',
           'Por que o desenvolvedor faliu? Porque ele usou todo o seu cache.',
@@ -36,6 +38,7 @@ MESES = ['Janeiro',
          'Novembro',
          'Dezembro'
          ]
+
 
 print("Iniciando Assistente Virtual")
 
@@ -124,15 +127,10 @@ while(True):
                     try:
                         audio_resposta = mic.listen(source, timeout=3)
                         resposta = mic.recognize_google(audio_resposta, language='pt-BR')
-                        if re.search(r'\b' + 'sim' + r'\b', resposta, re.IGNORECASE):
+                        if re.search(r'\b' + '(sim|quero)' + r'\b', resposta, re.IGNORECASE):
                             engine.say("Pode dizer")
                             engine.runAndWait()
-                        elif re.search(r'\b' + 'quero' + r'\b', resposta, re.IGNORECASE):
-                            engine.say("Pode dizer")
-                            engine.runAndWait()
-                        elif re.search(r'\b' + 'não' + r'\b', resposta, re.IGNORECASE):
-                            break
-                        elif re.search(r'\b' + 'terminei' + r'\b', resposta, re.IGNORECASE):
+                        elif re.search(r'\b' + '(não|terminei)' + r'\b', resposta, re.IGNORECASE):
                             break
 
                     except sr.WaitTimeoutError:
@@ -159,5 +157,14 @@ while(True):
                 else:
                     engine.say(f"Como eu iria me esquecer? Você se chama {nome_usuario}")
                     engine.runAndWait()
+            
+            elif (re.search(r'\b' + '(tocar\s*música\s*|tocar)' + r'\b', format(frase), re.IGNORECASE)):
+                musica = re.search('tocar\s*música\s*(.*)',format(frase), re.IGNORECASE)
+                if musica is None:
+                    musica = re.search('tocar(.*)',format(frase), re.IGNORECASE)
+                musica = musica.group(1)
+                engine.say(f"Tocando {musica}")
+                engine.runAndWait()
+                spotify.play_track(nome_musica=musica)
         except sr.UnknownValueError:
             print("Algo deu errado!")
